@@ -16,18 +16,29 @@ public class NaturalSortOrdering {
 		users.add(new User("Ganesh", 21, "Mumbai"));
 		users.add(new User("Yash", 24, "Gondia"));
 		users.add(new User("Ravi", 35, "Bellampalli"));
-		users.add(new User("Raju", 34, "Mancherial"));
+		users.add(new User("Raju", 35, "Mancherial"));
 		
+		System.out.println("***** Ascending Order age *****");
 		List<User> ascOrdList = users.stream()
 									 .sorted(Comparator.comparingInt(User::getAge))
 									 .collect(Collectors.toList());
 		ascOrdList.forEach(System.out::println);
 		
+		System.out.println("\n***** Descending Order age *****");
 		List<User> descOrdList = users.stream()
-									  .sorted((u1, u2) -> u2.getAge() - u1.getAge())
+									  .sorted(Comparator.comparingInt(User::getAge)
+											  .reversed())
 									  .collect(Collectors.toList());
 		descOrdList.forEach(System.out::println);
 		
+		System.out.println("\n***** Descending Order age and Ascending order name *****");
+		users.stream()
+			 .sorted(Comparator.comparingInt(User::getAge)
+					 .reversed()
+					 .thenComparing(User::getName))
+			 .forEach(System.out::println);
+		
+		System.out.println("\n***** Ascending Order name *****");
 		List<User> orderedNameList = users.stream()
 										  .sorted(Comparator.comparing(User::getName))
 										  .collect(Collectors.toList());
